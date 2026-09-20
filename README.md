@@ -4,6 +4,12 @@ A custom electromechanical pinball machine built using an Arduino Mega, MOSFET d
 
 I served as the **Hardware Lead** for this project, focusing on circuit integration, actuator control, sensor bring-up, power distribution, and debugging of the full electromechanical system.
 
+
+![Pinball Machine Picture](media/final_project_pic.jpg)
+
+![Group Image](media/group_img.jpg)
+
+
 ---
 
 ## Project Overview
@@ -21,6 +27,8 @@ The final system uses a finite state machine to control the game flow:
 7. `GAME_OVER` — wait for the start button to reset the game
 
 The player starts with 3 lives. When the ball enters the losing zone, one life is removed. If lives remain, the player must press the start button again to launch the next round. At zero lives, pressing start resets the game; another press launches the first ball. Scoring is handled within `IN_PLAY`, and the score is capped at 99.
+
+![State Diagram](hardware/circuit_diagrams/state_diagram.png)
 
 ---
 
