@@ -14,95 +14,42 @@ void stopGearMotors() {
   analogWrite(gearMotor3Pin, 0);
 }
 
-void launchBall() {
-  Serial.println("Launching ball");
+// Call every loop while in LAUNCH_BALL. Returns true when finished.
+// Each step is timed from its actual command time, so a slow loop never
+// skips a movement or shortens its settling time.
+bool launchBall() {
+  static bool active = false;
+  static byte step = 0;
+  static unsigned long stepStarted = 0;
+  const byte angles[] = {
+    servoClosedAngle, 150, 145, 140, 135, 130, 125, 120,
+    115, 110, 105, 100, 95, 92, servoOpenAngle, servoClosedAngle
+  };
+  const byte stepCount = sizeof(angles) / sizeof(angles[0]);
+  const unsigned long now = millis();
 
-  launcherServo.attach(servoPin);
+  if (!active) {
+    active = true;
+    step = 0;
+    Serial.println("Launching ball");
+    launcherServo.attach(servoPin);
+    launcherServo.write(angles[step]);
+    stepStarted = millis();
+    return false;
+  }
 
-  launcherServo.write(155);
-  delay(500);
+  // Hold the open position for 1 second; all other steps last 500 ms.
+  const unsigned long holdTime = (step == stepCount - 2) ? 1000UL : 500UL;
+  if (now - stepStarted < holdTime) return false;
 
-  
-  launcherServo.write(150);
-  delay(500);
+  ++step;
+  if (step >= stepCount) {
+    launcherServo.detach();
+    active = false;
+    return true;
+  }
 
-  launcherServo.write(145);
-  delay(500);
-
-  launcherServo.write(140);
-  delay(500);
-
-  launcherServo.write(135);
-  delay(500);
-
-  launcherServo.write(130);
-  delay(500);
-
-  launcherServo.write(125);
-  delay(500);
-
-  launcherServo.write(120);
-  delay(500);
-
-  launcherServo.write(115);
-  delay(500);
-
-  launcherServo.write(110);
-  delay(500);
-
-  launcherServo.write(105);
-  delay(500);
-
-  launcherServo.write(100);
-  delay(500);
-
-  launcherServo.write(95);
-  delay(500);
-  launcherServo.write(92);
-  delay(500);
-  /*
-  launcherServo.write(90);
-  delay(500);
-
-  launcherServo.write(87);
-  delay(500);
-
-  launcherServo.write(85);
-  delay(500);
-
-  launcherServo.write(82);
-  delay(500);
-
-  launcherServo.write(80);
-  delay(500);
-
-  launcherServo.write(78);
-  delay(500);
-
-  launcherServo.write(75);
-  delay(500);
-
-  launcherServo.write(72);
-  delay(500);
-
-  launcherServo.write(70);
-  delay(500);
-
-  launcherServo.write(67);
-  delay(500);
-
-  launcherServo.write(65);
-  delay(500);
-
-  launcherServo.write(62);
-  delay(500);
-  */
-  
-  launcherServo.write(servoOpenAngle);    // goes to 60
-  delay(1000);
-
-  launcherServo.write(servoClosedAngle);  // returns to 160
-  delay(500);
-
-  launcherServo.detach();                 // optional: stops servo buzzing
+  launcherServo.write(angles[step]);
+  stepStarted = millis();
+  return false;
 }

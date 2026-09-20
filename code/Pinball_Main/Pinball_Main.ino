@@ -64,6 +64,10 @@ int score = 0;
 int lives = 3;
 bool motor1Boosted = false;
 
+// Nonblocking life-loss pause; entry actions run only once.
+bool ballLostStarted = false;
+unsigned long ballLostStartedAt = 0;
+
 const int normalMotorSpeed = 120;
 const int boostedMotorSpeed = 255;
 
@@ -166,8 +170,9 @@ void loop() {
       break;
 
     case LAUNCH_BALL:
-      launchBall();
-      state = IN_PLAY;
+      if (launchBall()) {
+        state = IN_PLAY;
+      }
       break;
 
     case IN_PLAY:
@@ -192,27 +197,23 @@ void loop() {
       break;
 
     case BALL_LOST:
-      stopGearMotors();
+      if (!ballLostStarted) {
+        ballLostStarted = true;
+        stopGearMotors();
+        lives--;
+        if (lives < 0) lives = 0;
 
-      lives--;
-
-      if (lives < 0) {
-        lives = 0;
+        playLoseLifeSound();
+        Serial.print("Life lost. Lives left: ");
+        Serial.println(lives);
+        ballLostStartedAt = millis();
       }
 
-      playLoseLifeSound();
-
-      Serial.print("Life lost. Lives left: ");
-      Serial.println(lives);
-
-      if (lives <= 0) {
-        delay(800);
+      // Preserve the existing 800 ms pause while servicing the main loop.
+      if (millis() - ballLostStartedAt >= 800UL) {
         startBackgroundMusic();
-        state = GAME_OVER;
-      } else {
-        delay(800);
-        startBackgroundMusic();
-        state = NEXT_ROUND;
+        ballLostStarted = false;
+        state = (lives <= 0) ? GAME_OVER : NEXT_ROUND;
       }
       break;
 
