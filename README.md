@@ -85,6 +85,8 @@ As Hardware Lead, I worked on the integration and debugging of the main electrom
 
 ## Current Firmware Behavior
 
+**Firmware validation status:** The revised timing logic passed a host-side simulation, as documented in [Firmware Notes](docs/firmware_notes.md). Compilation for the Arduino Mega and testing of this revision on the physical machine remain pending; operation of the earlier course build does not validate the revised firmware.
+
 ### Servo Gate
 
 Pressing the start button on **D4** runs the launch sequence using the servo on **D44**. The gate moves gradually from its **155° closed position** toward the **60° open position**, holds open for one second, then returns to 155° and detaches to reduce buzzing. Gameplay begins after the launch sequence finishes.
@@ -120,8 +122,11 @@ The DFPlayer Mini provides scoring effects, life-loss audio, and background musi
 | `media/0002.mp3` | IR and piezo scoring |
 | `media/0003.mp3` | Background music |
 
-For launch timing, sensor thresholds, and current firmware limitations, see
-[Firmware Notes](docs/firmware_notes.md).
+## Setup and Documentation
+
+- [Setup guide](docs/setup.md) — software installation, firmware pins, audio preparation, and staged checks.
+- [Troubleshooting](docs/troubleshooting.md) — reported build issues, diagnostic checks, and known limitations.
+- [Firmware Notes](docs/firmware_notes.md) — launch timing, sensor thresholds, and detailed firmware behavior.
 
 ---
 
