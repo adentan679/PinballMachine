@@ -2,7 +2,7 @@
 
 These notes describe the revised `Pinball_Main.ino`, `Motors_Servo.ino`, and `Solenoids.ino` provided for the timing fix, together with the other five original tabs. Install all three revised tabs together. The earlier revision used blocking launch and life-loss delays.
 
-**Validation status:** the revised timing logic passed a host-side simulation of both solenoid releases, the launch sequence, repeat launches, and life-loss transitions. Arduino Mega compilation and testing of this revision on the physical machine are pending. Earlier hardware operation does not validate the revised firmware.
+**Validation status:** The current firmware was compiled and uploaded to the Arduino Mega and successfully validated on the completed physical machine. Full-system testing verified the solenoid controls, servo launch sequence, repeat launches, gear motors, scoring sensors, life-loss transitions, displays, and audio behavior during normal gameplay.
 
 ## Game States
 

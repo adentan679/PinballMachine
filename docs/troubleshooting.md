@@ -4,7 +4,7 @@
 
 - **Power brownouts:** Separating the regulated 5 V electronics supply from the 12 V motor/solenoid supply resolved the reported resets during actuator operation.
 - **Speaker-related overheating:** An early direct-speaker connection was associated with MCU overheating. The board was replaced, and audio was moved to a DFPlayer Mini.
-- **Blocking timing:** The later firmware revision uses timed launch/life-loss sequences and direct solenoid-release handling. Its host-side simulation passed; Mega compilation and physical testing remain pending.
+- **Blocking timing:** The later firmware revision uses timed launch/life-loss sequences and direct solenoid-release handling. The revised firmware was successfully compiled, uploaded to the Arduino Mega, and physically tested on the completed machine. The launch sequence, life-loss transitions, and solenoid-release behavior operated correctly during testing.
 
 ## Common Checks
 

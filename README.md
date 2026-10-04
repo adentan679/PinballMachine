@@ -85,7 +85,7 @@ As Hardware Lead, I worked on the integration and debugging of the main electrom
 
 ## Current Firmware Behavior
 
-**Firmware validation status:** The revised timing logic passed a host-side simulation, as documented in [Firmware Notes](docs/firmware_notes.md). Compilation for the Arduino Mega and testing of this revision on the physical machine remain pending; operation of the earlier course build does not validate the revised firmware.
+**Validation status:** The current firmware was compiled, uploaded to the Arduino Mega, and physically tested on the completed pinball machine. Full-system testing confirmed that the launch gate, solenoid flippers, DC gear motors, scoring and loss sensors, piezo sensors, displays, lives tracking, and DFPlayer Mini audio operated successfully during gameplay.
 
 ### Servo Gate
 
@@ -150,3 +150,18 @@ Solenoid Buttons ───┤
                     ↓
         Score Display + Lives Display
 ```
+
+## Physical Validation
+
+The completed pinball machine was tested as a fully integrated system using the Arduino Mega firmware in this repository. Testing verified:
+
+- Servo-controlled ball launching
+- Solenoid flipper actuation and release
+- DC gear motor operation
+- IR and piezo-based scoring
+- Ball-loss detection and lives tracking
+- Score and lives displays
+- DFPlayer Mini audio playback
+- Full game-state progression from reset through game over
+
+The system operated successfully during complete gameplay testing.

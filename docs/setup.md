@@ -8,7 +8,7 @@
 4. Disconnect actuator power, click **Verify**, then **Upload** after compilation succeeds.
 5. Open Serial Monitor at **9600 baud** and check the startup messages.
 
-**Validation status:** The revised timing logic passed a host-side simulation according to the firmware notes. Mega compilation and physical testing of this revision remain pending.
+**Validation status:** The firmware has been compiled and uploaded to the Arduino Mega and successfully tested on the completed pinball machine. The machine completed normal gameplay with the launch gate, flippers, motors, sensors, displays, lives tracking, and audio operating as intended.
 
 ## Firmware Pin Assignments
 
